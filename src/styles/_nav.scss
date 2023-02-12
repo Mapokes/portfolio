@@ -1,0 +1,45 @@
+@use "./config" as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: $clr-grey;
+  z-index: 100;
+
+  &__refresh {
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    margin-left: 1rem;
+    list-style: none;
+
+    &__btn {
+      @include buttonStyle;
+      font-size: 0.7rem;
+
+      &:hover {
+        text-decoration: underline;
+        text-decoration-color: $clr-light-green;
+      }
+    }
+  }
+
+  &__github {
+    @include githubLinkStyle;
+
+    &__icon {
+      font-size: 1.5rem;
+    }
+  }
+}

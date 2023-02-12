@@ -1,0 +1,76 @@
+@use "./config" as *;
+
+.section-front {
+  display: grid;
+  grid-template-areas:
+    "alias-kot"
+    "alias-title"
+    "alias-description"
+    "alias-btn"
+    "alias-list";
+  justify-items: center;
+  width: 100%;
+  margin-top: 2.5rem;
+
+  &__title {
+    grid-area: alias-title;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 2rem;
+
+    & span {
+      text-decoration: underline;
+      text-decoration-color: $clr-light-green;
+      font-size: 2rem;
+    }
+  }
+
+  &__description {
+    grid-area: alias-description;
+    margin-top: 0.3rem;
+    opacity: 0.8;
+    font-size: 1rem;
+  }
+
+  &__btn {
+    grid-area: alias-btn;
+    @include buttonStyle;
+    @include linkStyle;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+
+  &__list {
+    grid-area: alias-list;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 3.5rem;
+    padding: 1rem 0;
+    list-style: none;
+    border-top: 2px solid $clr-white;
+    border-bottom: 2px solid $clr-white;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 1.5rem;
+
+      & .front-img {
+        width: 1.5rem;
+      }
+    }
+  }
+
+  &__kot {
+    grid-area: alias-kot;
+    width: 40%;
+    aspect-ratio: 0.7;
+    object-fit: cover;
+    filter: grayscale(60%);
+  }
+}

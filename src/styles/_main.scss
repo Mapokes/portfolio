@@ -1,0 +1,15 @@
+@use "./config" as *;
+
+body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: $clr-blackish;
+  overflow-x: hidden;
+}
+
+#root {
+  max-width: 660px;
+  width: 100%;
+  padding: 1rem;
+}
