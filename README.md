@@ -30,7 +30,7 @@ Users are able to:
 
 ### Screenshots
 
-![screenshots1](https://i.postimg.cc/kJMR5Sg2/1.png)
+![screenshots1](https://i.postimg.cc/p2hSysqS/1.jpg)
 
 ### Links
 
