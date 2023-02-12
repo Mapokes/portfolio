@@ -37,13 +37,13 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
   }));
 
   React.useEffect(() => {
-    fetch("/keys")
+    fetch("/api")
       .then((response) => response.json())
       .then((data) => {
         setKeys({
-          serviceID: data.serviceID,
-          templateID: data.templateID,
-          publicKey: data.publicKey,
+          serviceID: data.keys.serviceID,
+          templateID: data.keys.templateID,
+          publicKey: data.keys.publicKey,
         });
       })
       .catch((e) => {

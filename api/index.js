@@ -19,8 +19,17 @@ async function getData() {
   const Project = Parse.Object.extend("Project");
   const query = new Parse.Query(Project);
   try {
+    const keys = {
+      serviceID: serviceID,
+      templateID: templateID,
+      publicKey: publicKey,
+    };
     const results = await query.find();
-    const data = [];
+    const data = {
+      projects: [],
+      keys: keys,
+    };
+
     for (const object of results) {
       const projectName = object.get("projectName");
       const projectLink = object.get("projectLink");
@@ -29,7 +38,7 @@ async function getData() {
       const projectTech = object.get("projectTech");
       const techArray = projectTech.split(",");
 
-      data.unshift({
+      data.projects.unshift({
         projectName: projectName,
         projectLink: projectLink,
         projectPhoto: projectPhoto,
@@ -47,15 +56,15 @@ async function getData() {
 
 getData();
 
-app.get("/keys", (req, res) => {
-  const keys = {
-    serviceID: serviceID,
-    templateID: templateID,
-    publicKey: publicKey,
-  };
+// app.get("/keys", (req, res) => {
+//   const keys = {
+//     serviceID: serviceID,
+//     templateID: templateID,
+//     publicKey: publicKey,
+//   };
 
-  res.send(keys);
-});
+//   res.send(keys);
+// });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT);

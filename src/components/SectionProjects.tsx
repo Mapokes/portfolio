@@ -40,7 +40,7 @@ const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
       .request(options)
       .then((response) => {
         setLoading(false);
-        setProjectData(response.data);
+        setProjectData(response.data.projects);
       })
       .catch((e) => {
         console.log(e);
