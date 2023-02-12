@@ -59,3 +59,5 @@ app.get("/keys", (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT);
+
+module.exports = app;
