@@ -17,10 +17,13 @@ type Props = {};
 type Ref = { ref: React.ForwardedRef<Props> };
 
 const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
+  console.log("SectionProjects rendered");
   const projectsRef = React.useRef<HTMLElement>(null);
   const [projectData, setProjectData] = React.useState<Project[]>([]);
   const [error, setError] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [timer, setTimer] = React.useState<number>(0);
+  const [action, setAction] = React.useState<boolean>(false);
 
   React.useImperativeHandle(ref, () => ({
     scrollIntoView: () => {
@@ -30,24 +33,34 @@ const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
     },
   }));
 
-  React.useEffect(() => {
-    const options: { method: string; url: string } = {
-      method: "GET",
-      url: "/api",
-    };
+  const options: { method: string; url: string } = {
+    method: "GET",
+    url: "http://localhost:3001/api",
+  };
 
-    axios
-      .request(options)
-      .then((response) => {
-        setLoading(false);
-        setProjectData(response.data.projects);
-      })
-      .catch((e) => {
-        console.log(e);
-        setError(true);
-        setLoading(false);
-      });
-  }, []);
+  React.useEffect(() => {
+    if (projectData.length === 0) {
+      setTimeout(() => {
+        axios
+          .request(options)
+          .then((response) => {
+            setLoading(false);
+            setError(false);
+            setProjectData(response.data.projects);
+          })
+          .catch((e) => {
+            console.log(e);
+            setError(true);
+            setLoading(false);
+            setAction((prevAction) => !prevAction);
+
+            if (timer === 0) {
+              setTimer(1000);
+            }
+          });
+      }, timer);
+    }
+  }, [action]);
 
   React.useEffect(() => {
     Aos.init({ duration: 500 });

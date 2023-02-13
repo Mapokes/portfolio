@@ -14,6 +14,7 @@ interface Props {
 }
 
 const SectionFront: React.FC<Props> = ({ refToContact }) => {
+  console.log("SectionFront rendered");
   return (
     <section className="section-front">
       <h1 className="section-front__title">

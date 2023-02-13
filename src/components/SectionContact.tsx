@@ -10,6 +10,7 @@ type FormData = {
 };
 
 const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
+  console.log("SectionContact rendered");
   const contactRef = React.useRef<HTMLElement>(null);
   const [formData, setFormData] = React.useState<FormData>({
     nameInput: "",
@@ -27,6 +28,8 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
     templateID: "",
     publicKey: "",
   });
+  const [timer, setTimer] = React.useState<number>(0);
+  const [action, setAction] = React.useState<boolean>(false);
 
   React.useImperativeHandle(ref, () => ({
     scrollIntoView: () => {
@@ -37,23 +40,32 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
   }));
 
   React.useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => {
-        setKeys({
-          serviceID: data.keys.serviceID,
-          templateID: data.keys.templateID,
-          publicKey: data.keys.publicKey,
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-        setError({
-          error: true,
-          errorMsg: e.message,
-        });
-      });
-  }, []);
+    if (keys.publicKey === "") {
+      setTimeout(() => {
+        fetch("http://localhost:3001/api")
+          .then((response) => response.json())
+          .then((data) => {
+            setKeys({
+              serviceID: data.keys.serviceID,
+              templateID: data.keys.templateID,
+              publicKey: data.keys.publicKey,
+            });
+          })
+          .catch((e) => {
+            console.log(e);
+            setError({
+              error: true,
+              errorMsg: e.message,
+            });
+            setAction((prevAction) => !prevAction);
+
+            if (timer === 0) {
+              setTimer(1000);
+            }
+          });
+      }, timer);
+    }
+  }, [action]);
 
   React.useEffect(() => {
     if (modal) {
