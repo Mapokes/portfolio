@@ -32,13 +32,13 @@ const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
     },
   }));
 
-  const options: { method: string; url: string } = {
-    method: "GET",
-    url: "/api",
-  };
-
   React.useEffect(() => {
     if (projectData.length === 0) {
+      const options: { method: string; url: string } = {
+        method: "GET",
+        url: "/api",
+      };
+
       setTimeout(() => {
         axios
           .request(options)
@@ -59,7 +59,7 @@ const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
           });
       }, timer);
     }
-  }, [action]);
+  }, [action, projectData, timer]);
 
   React.useEffect(() => {
     Aos.init({ duration: 500 });

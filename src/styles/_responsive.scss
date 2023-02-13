@@ -5,10 +5,6 @@
     font-size: 20px;
   }
 
-  #root {
-    max-width: 900px;
-  }
-
   .navbar {
     padding: 0.5rem 2rem;
 
@@ -19,6 +15,7 @@
   }
 
   .section-front {
+    max-width: 900px;
     grid-template-areas:
       "alias-title ."
       "alias-description ."
@@ -68,12 +65,13 @@
     &__kot {
       position: absolute;
       top: 1rem;
-      right: -1rem;
+      right: 1rem;
       max-height: 380px;
     }
   }
 
   .section-projects {
+    max-width: 900px;
     padding-bottom: 2rem;
 
     &__title {
@@ -97,9 +95,8 @@
   }
 
   .section-contact {
-    width: 70%;
-    margin: 2rem auto;
-    margin-bottom: 0;
+    grid-template-columns: 1fr minmax(250px, 600px) 1fr;
+    margin-top: 2rem;
 
     &__description {
       &__title {
@@ -113,15 +110,21 @@
   }
 
   .footer {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem 1rem 1.5rem 1rem;
+    grid-template-areas: ". alias-title alias-link .";
+    grid-template-columns: 1fr minmax(200px, 450px) minmax(200px, 450px) 1fr;
+
+    &::after {
+      max-width: 850px;
+    }
 
     &__title {
+      justify-self: start;
       font-size: 1.5rem;
     }
 
     &__link {
+      justify-self: end;
+
       &__icon {
         font-size: 1.5rem;
       }
@@ -130,10 +133,6 @@
 }
 
 @include media-lg {
-  #root {
-    max-width: 1100px;
-  }
-
   .navbar {
     padding: 0.5rem 3rem;
 
@@ -156,6 +155,8 @@
   }
 
   .section-front {
+    max-width: 1100px;
+
     &__btn {
       margin-top: 3rem;
       margin-bottom: 4rem;
@@ -166,20 +167,30 @@
     }
   }
 
+  .section-projects {
+    max-width: 1100px;
+  }
+
   .section-contact {
-    width: 90%;
-    flex-direction: row;
-    justify-content: space-between;
+    grid-template-areas: ". alias-description alias-form .";
+    grid-template-columns: 1fr minmax(200px, 500px) minmax(200px, 500px) 1fr;
 
     &__description {
-      flex-basis: 45%;
       align-items: flex-start;
       text-align: start;
+      padding-right: 2rem;
     }
 
     &__form {
-      flex-basis: 45%;
       margin-top: 0;
+    }
+  }
+
+  .footer {
+    grid-template-columns: 1fr minmax(200px, 500px) minmax(200px, 500px) 1fr;
+
+    &::after {
+      max-width: 1100px;
     }
   }
 }

@@ -5,11 +5,11 @@ body {
   justify-content: center;
   height: 100vh;
   background-color: $clr-blackish;
-  overflow-x: hidden;
 }
 
 #root {
-  max-width: 660px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  padding: 1rem;
 }

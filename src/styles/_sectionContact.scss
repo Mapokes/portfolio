@@ -1,18 +1,18 @@
 @use "./config" as *;
 
 .section-contact {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas:
+    ". alias-description ."
+    ". alias-form .";
+  grid-template-columns: 1fr minmax(250px, 400px) 1fr;
   margin-top: 2rem;
-  padding: 2rem 0 4rem 0;
+  padding: 2rem 1rem 4rem 1rem;
   width: 100%;
-  position: relative;
-
-  &::before {
-    @include greyBackgroundStyle;
-  }
+  background-color: $clr-grey;
 
   &__description {
+    grid-area: alias-description;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,6 +30,7 @@
   }
 
   &__form {
+    grid-area: alias-form;
     display: flex;
     flex-direction: column;
     align-items: center;

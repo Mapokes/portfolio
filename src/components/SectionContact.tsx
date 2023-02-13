@@ -49,6 +49,10 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
               templateID: data.keys.templateID,
               publicKey: data.keys.publicKey,
             });
+            setError({
+              error: false,
+              errorMsg: "",
+            });
           })
           .catch((e) => {
             console.log(e);
@@ -64,7 +68,7 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
           });
       }, timer);
     }
-  }, [action]);
+  }, [action, keys, timer]);
 
   React.useEffect(() => {
     if (modal) {
