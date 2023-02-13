@@ -1,15 +1,23 @@
 import React from "react";
 import emailjs from "@emailjs/browser";
+import IntersectionObserverOptions from "../model";
 
-type Props = {};
-type Ref = { ref: React.ForwardedRef<Props> };
+type Props = {
+  setVisibleComponent: React.Dispatch<
+    React.SetStateAction<{
+      top: boolean;
+      projects: boolean;
+      contact: boolean;
+    }>
+  >;
+};
 type FormData = {
   nameInput: string;
   emailInput: string;
   messageTextarea: string;
 };
 
-const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
+const SectionContact = React.forwardRef<any, Props>(({ setVisibleComponent }, ref) => {
   const contactRef = React.useRef<HTMLElement>(null);
   const [formData, setFormData] = React.useState<FormData>({
     nameInput: "",
@@ -29,6 +37,13 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
   });
   const [timer, setTimer] = React.useState<number>(0);
   const [action, setAction] = React.useState<boolean>(false);
+  const options = React.useMemo((): IntersectionObserverOptions => {
+    return {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.3,
+    };
+  }, []);
 
   React.useImperativeHandle(ref, () => ({
     scrollIntoView: () => {
@@ -142,6 +157,26 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
       });
     }
   }
+
+  function cbFunction(entries: Array<any>): void {
+    const [entry] = entries;
+    setVisibleComponent((prevVisibleComponent) => {
+      return {
+        ...prevVisibleComponent,
+        contact: entry.isIntersecting,
+      };
+    });
+  }
+
+  React.useEffect(() => {
+    const observer: IntersectionObserver = new IntersectionObserver(cbFunction, options);
+    const currentTarget: HTMLElement | null = contactRef.current;
+    if (currentTarget) observer.observe(currentTarget);
+
+    return () => {
+      if (currentTarget) observer.unobserve(currentTarget);
+    };
+  }, [contactRef, options]);
 
   return (
     <section className="section-contact" ref={contactRef}>

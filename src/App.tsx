@@ -6,15 +6,20 @@ import SectionContact from "./components/SectionContact";
 import Footer from "./components/Footer";
 
 const App: React.FC = () => {
+  const [visibleComponent, setVisibleComponent] = React.useState({
+    top: false,
+    projects: false,
+    contact: false,
+  });
   const projectsRef = React.useRef<HTMLElement>(null);
   const contactRef = React.useRef<HTMLElement>(null);
 
   return (
     <>
-      <Nav refToProjects={projectsRef} refToContact={contactRef} />
-      <SectionFront refToContact={contactRef} />
-      <SectionProjects ref={projectsRef} />
-      <SectionContact ref={contactRef} />
+      <Nav refToProjects={projectsRef} refToContact={contactRef} visibleComponent={visibleComponent} />
+      <SectionFront refToContact={contactRef} setVisibleComponent={setVisibleComponent} />
+      <SectionProjects ref={projectsRef} setVisibleComponent={setVisibleComponent} />
+      <SectionContact ref={contactRef} setVisibleComponent={setVisibleComponent} />
       <Footer />
     </>
   );

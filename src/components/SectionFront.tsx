@@ -8,14 +8,51 @@ import reactImg from "../images/icons8-react.svg";
 import typesciptImg from "../images/icons8-typescript-48.svg";
 import sassImg from "../images/Sass_Logo_Color.svg";
 import { scrollToContact } from "../Utils";
+import IntersectionObserverOptions from "../model";
 
 interface Props {
   refToContact: React.RefObject<HTMLElement>;
+  setVisibleComponent: React.Dispatch<
+    React.SetStateAction<{
+      top: boolean;
+      projects: boolean;
+      contact: boolean;
+    }>
+  >;
 }
 
-const SectionFront: React.FC<Props> = ({ refToContact }) => {
+const SectionFront: React.FC<Props> = ({ refToContact, setVisibleComponent }) => {
+  const frontRef = React.useRef<HTMLElement>(null);
+  const options = React.useMemo((): IntersectionObserverOptions => {
+    return {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.2,
+    };
+  }, []);
+
+  function cbFunction(entries: Array<any>): void {
+    const [entry] = entries;
+    setVisibleComponent((prevVisibleComponent) => {
+      return {
+        ...prevVisibleComponent,
+        top: entry.isIntersecting,
+      };
+    });
+  }
+
+  React.useEffect(() => {
+    const observer: IntersectionObserver = new IntersectionObserver(cbFunction, options);
+    const currentTarget: HTMLElement | null = frontRef.current;
+    if (currentTarget) observer.observe(currentTarget);
+
+    return () => {
+      if (currentTarget) observer.unobserve(currentTarget);
+    };
+  }, [frontRef, options]);
+
   return (
-    <section className="section-front">
+    <section className="section-front" ref={frontRef}>
       <h1 className="section-front__title">
         Welcome! <br /> I'm <span>Mapokes</span>
       </h1>

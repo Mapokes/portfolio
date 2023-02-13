@@ -26,9 +26,11 @@
 
     &__btn {
       @include buttonStyle;
+      letter-spacing: 1px;
       font-size: 0.9rem;
 
-      &:hover {
+      &.active {
+        font-weight: fontWeight(bold);
         text-decoration: underline;
         text-decoration-color: $clr-light-green;
       }

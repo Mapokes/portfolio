@@ -5,6 +5,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import imgUnavaiable from "../images/NoImageAvailable.jpg";
+import IntersectionObserverOptions from "../model";
 
 type Project = {
   projectName: string;
@@ -13,16 +14,30 @@ type Project = {
   projectPhoto: string;
   projectTechArray: Array<string>;
 };
-type Props = {};
-type Ref = { ref: React.ForwardedRef<Props> };
+type Props = {
+  setVisibleComponent: React.Dispatch<
+    React.SetStateAction<{
+      top: boolean;
+      projects: boolean;
+      contact: boolean;
+    }>
+  >;
+};
 
-const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
+const SectionProjects = React.forwardRef<any, Props>(({ setVisibleComponent }, ref) => {
   const projectsRef = React.useRef<HTMLElement>(null);
   const [projectData, setProjectData] = React.useState<Project[]>([]);
   const [error, setError] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [timer, setTimer] = React.useState<number>(0);
   const [action, setAction] = React.useState<boolean>(false);
+  const options = React.useMemo((): IntersectionObserverOptions => {
+    return {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1,
+    };
+  }, []);
 
   React.useImperativeHandle(ref, () => ({
     scrollIntoView: () => {
@@ -64,6 +79,26 @@ const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
   React.useEffect(() => {
     Aos.init({ duration: 500 });
   }, []);
+
+  function cbFunction(entries: Array<any>): void {
+    const [entry] = entries;
+    setVisibleComponent((prevVisibleComponent) => {
+      return {
+        ...prevVisibleComponent,
+        projects: entry.isIntersecting,
+      };
+    });
+  }
+
+  React.useEffect(() => {
+    const observer: IntersectionObserver = new IntersectionObserver(cbFunction, options);
+    const currentTarget: HTMLElement | null = projectsRef.current;
+    if (currentTarget) observer.observe(currentTarget);
+
+    return () => {
+      if (currentTarget) observer.unobserve(currentTarget);
+    };
+  }, [projectsRef, options]);
 
   return (
     <section className="section-projects" ref={projectsRef}>
