@@ -17,7 +17,6 @@ type Props = {};
 type Ref = { ref: React.ForwardedRef<Props> };
 
 const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
-  console.log("SectionProjects rendered");
   const projectsRef = React.useRef<HTMLElement>(null);
   const [projectData, setProjectData] = React.useState<Project[]>([]);
   const [error, setError] = React.useState<boolean>(false);

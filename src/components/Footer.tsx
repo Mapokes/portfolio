@@ -1,7 +1,6 @@
 import React from "react";
 
 const Footer: React.FC = () => {
-  console.log("Footer rendered");
   return (
     <footer className="footer">
       <h4 className="footer__title">mapokes</h4>

@@ -6,7 +6,6 @@ import SectionContact from "./components/SectionContact";
 import Footer from "./components/Footer";
 
 const App: React.FC = () => {
-  console.log("App rendered");
   const projectsRef = React.useRef<HTMLElement>(null);
   const contactRef = React.useRef<HTMLElement>(null);
 

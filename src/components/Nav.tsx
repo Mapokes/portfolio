@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Nav: React.FC<Props> = ({ refToContact, refToProjects }) => {
-  console.log("Nav rendered");
   function scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }

@@ -10,7 +10,6 @@ type FormData = {
 };
 
 const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
-  console.log("SectionContact rendered");
   const contactRef = React.useRef<HTMLElement>(null);
   const [formData, setFormData] = React.useState<FormData>({
     nameInput: "",
