@@ -35,7 +35,7 @@ const SectionProjects = React.forwardRef<Props, Ref>((props, ref) => {
 
   const options: { method: string; url: string } = {
     method: "GET",
-    url: "http://localhost:3001/api",
+    url: "/api",
   };
 
   React.useEffect(() => {

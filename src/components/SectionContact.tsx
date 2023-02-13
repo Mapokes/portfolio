@@ -42,7 +42,7 @@ const SectionContact = React.forwardRef<Props, Ref>((props, ref) => {
   React.useEffect(() => {
     if (keys.publicKey === "") {
       setTimeout(() => {
-        fetch("http://localhost:3001/api")
+        fetch("/api")
           .then((response) => response.json())
           .then((data) => {
             setKeys({
