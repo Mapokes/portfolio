@@ -55,6 +55,7 @@ Users are able to:
 - [axios](https://www.npmjs.com/package/axios) for fetching
 - [AOS](https://www.npmjs.com/package/aos) for animating elements on page as you scroll
 - [react-spinners](https://www.npmjs.com/package/react-spinners) for loading animation
+- [back4app](https://www.back4app.com/) for online database
 
 ## Author
 
